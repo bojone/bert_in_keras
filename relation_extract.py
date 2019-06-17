@@ -19,6 +19,8 @@ checkpoint_path = '../bert/chinese_L-12_H-768_A-12/bert_model.ckpt'
 dict_path = '../bert/chinese_L-12_H-768_A-12/vocab.txt'
 
 
+token_dict = {}
+
 with codecs.open(dict_path, 'r', 'utf8') as reader:
     for line in reader:
         token = line.strip()
@@ -142,7 +144,7 @@ class data_generator:
             T1, T2, S1, S2, K1, K2, O1, O2 = [], [], [], [], [], [], [], []
             for i in idxs:
                 d = self.data[i]
-                text = reduce_space(d['text'][:maxlen])
+                text = d['text'][:maxlen]
                 tokens = tokenizer.tokenize(text)
                 items = {}
                 for sp in d['spo_list']:
@@ -278,8 +280,7 @@ def extract_items(text_in):
         j = _k2[_k2 >= i]
         if len(j) > 0:
             j = j[0]
-            _subject = text_in[i-1: j])
-            _subject = repair_space(_subject)
+            _subject = text_in[i-1: j]
             _subjects.append((_subject, i, j))
     if _subjects:
         R = []
