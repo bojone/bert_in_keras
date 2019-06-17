@@ -102,7 +102,7 @@ x1_in = Input(shape=(None,))
 x2_in = Input(shape=(None,))
 
 x = bert_model([x1_in, x2_in])
-x = Lambda(lambda x: x[:, 0])(x)
+x = Lambda(lambda x: x[:, 0])(x) # 取出[CLS]对应的向量用来做分类
 p = Dense(1, activation='sigmoid')(x)
 
 model = Model([x1_in, x2_in], p)
