@@ -18,17 +18,28 @@ dict_path = '../bert/chinese_L-12_H-768_A-12/vocab.txt'
 
 
 token_dict = {}
+
 with codecs.open(dict_path, 'r', 'utf8') as reader:
     for line in reader:
         token = line.strip()
         token_dict[token] = len(token_dict)
 
 
-tokenizer = Tokenizer(token_dict)
+class OurTokenizer(Tokenizer):
+    def _tokenize(self, text):
+        R = []
+        for c in text:
+            if c in self._token_dict:
+                R.append(c)
+            elif self._is_space(c):
+                R.append('[unused1]') # space类用未经训练的[unused1]表示
+            else:
+                R.append('[UNK]') # 剩余的字符是[UNK]
+        return R
 
 
+tokenizer = OurTokenizer(token_dict)
 
-import pandas as pd
 
 neg = pd.read_excel('neg.xls', header=None)
 pos = pd.read_excel('pos.xls', header=None)
@@ -42,9 +53,19 @@ for d in pos[0]:
     data.append((d, 1))
 
 
+if not os.path.exists('./random_order.json'):
+    random_order = range(len(data))
+    np.random.shuffle(random_order)
+    json.dump(
+        random_order,
+        open('./random_order.json', 'w'),
+        indent=4
+    )
+else:
+    random_order = json.load(open('./random_order.json'))
+
+
 # 按照9:1的比例划分训练集和验证集
-random_order = range(len(data))
-np.random.shuffle(random_order)
 train_data = [data[j] for i, j in enumerate(random_order) if i % 10 != 0]
 valid_data = [data[j] for i, j in enumerate(random_order) if i % 10 == 0]
 
@@ -102,7 +123,7 @@ x1_in = Input(shape=(None,))
 x2_in = Input(shape=(None,))
 
 x = bert_model([x1_in, x2_in])
-x = Lambda(lambda x: x[:, 0])(x) # 取出[CLS]对应的向量用来做分类
+x = Lambda(lambda x: x[:, 0])(x)
 p = Dense(1, activation='sigmoid')(x)
 
 model = Model([x1_in, x2_in], p)
