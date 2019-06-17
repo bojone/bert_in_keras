@@ -264,7 +264,7 @@ train_D = data_generator(train_data)
 if __name__ == '__main__':
     train_model.fit_generator(train_D.__iter__(),
                               steps_per_epoch=len(train_D),
-                              epochs=120,
+                              epochs=20,
                               callbacks=[evaluator]
                              )
 else:
