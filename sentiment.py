@@ -37,7 +37,6 @@ class OurTokenizer(Tokenizer):
                 R.append('[UNK]') # 剩余的字符是[UNK]
         return R
 
-
 tokenizer = OurTokenizer(token_dict)
 
 
