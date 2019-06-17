@@ -10,8 +10,6 @@ import codecs
 
 
 maxlen = 100
-
-
 config_path = '../bert/chinese_L-12_H-768_A-12/bert_config.json'
 checkpoint_path = '../bert/chinese_L-12_H-768_A-12/bert_model.ckpt'
 dict_path = '../bert/chinese_L-12_H-768_A-12/vocab.txt'
@@ -52,19 +50,9 @@ for d in pos[0]:
     data.append((d, 1))
 
 
-if not os.path.exists('./random_order.json'):
-    random_order = range(len(data))
-    np.random.shuffle(random_order)
-    json.dump(
-        random_order,
-        open('./random_order.json', 'w'),
-        indent=4
-    )
-else:
-    random_order = json.load(open('./random_order.json'))
-
-
 # 按照9:1的比例划分训练集和验证集
+random_order = range(len(data))
+np.random.shuffle(random_order)
 train_data = [data[j] for i, j in enumerate(random_order) if i % 10 != 0]
 valid_data = [data[j] for i, j in enumerate(random_order) if i % 10 == 0]
 
