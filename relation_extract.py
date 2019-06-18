@@ -396,7 +396,7 @@ evaluator = Evaluate()
 if __name__ == '__main__':
     train_model.fit_generator(train_D.__iter__(),
                               steps_per_epoch=1000,
-                              epochs=30,
+                              epochs=120,
                               callbacks=[evaluator]
                               )
 else:
