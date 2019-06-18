@@ -251,7 +251,7 @@ class Evaluate(Callback):
 def test(test_data):
     F = open('result.txt', 'w')
     for d in tqdm(iter(test_data)):
-        s = u'"%s","%s"\n' % (d[0], extract_entity(d[1].replace('\t', ''), d[2]))
+        s = u'"%s","%s"\n' % (d[0], extract_entity(d[1], d[2]))
         s = s.encode('utf-8')
         F.write(s)
     F.close()
@@ -264,7 +264,7 @@ train_D = data_generator(train_data)
 if __name__ == '__main__':
     train_model.fit_generator(train_D.__iter__(),
                               steps_per_epoch=len(train_D),
-                              epochs=20,
+                              epochs=120,
                               callbacks=[evaluator]
                              )
 else:
