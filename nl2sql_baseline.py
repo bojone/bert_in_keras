@@ -404,7 +404,7 @@ if __name__ == '__main__':
     train_model.fit_generator(
         train_D.__iter__(),
         steps_per_epoch=len(train_D),
-        epochs=100,
+        epochs=15,
         callbacks=[evaluator]
     )
 else:
