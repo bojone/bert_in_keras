@@ -1,5 +1,5 @@
 #! -*- coding: utf-8 -*-
-# 追一科技2019年NL2SQL挑战赛的一个Baseline（非官方，基于Bert）
+# 追一科技2019年NL2SQL挑战赛的一个Baseline（个人作品，非官方发布，基于Bert）
 # 比赛地址：https://tianchi.aliyun.com/competition/entrance/231716/introduction
 
 import json
