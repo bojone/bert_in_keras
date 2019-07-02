@@ -17,3 +17,6 @@
 ### 中文版权重
 - 官方版： https://github.com/google-research/bert
 - 哈工大版： https://github.com/ymcui/Chinese-BERT-wwm
+
+### 严重声明
+- <font color=red>不欢迎任何NLP和Keras文盲来跑此代码吗！！你都要玩Bert了，我认为你学习NLP的时间好歹要在半年以上，你学习Keras的时间好歹要一周以上。别想着一蹴而就，不欢迎只想调包跑通的人，不要用任何“我时间紧”的借口。</font>
