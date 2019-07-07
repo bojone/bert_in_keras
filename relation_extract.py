@@ -211,7 +211,7 @@ def seq_gather(x):
     return K.tf.gather_nd(seq, idxs)
 
 
-bert_model = load_trained_model_from_checkpoint(config_path, checkpoint_path)
+bert_model = load_trained_model_from_checkpoint(config_path, checkpoint_path, seq_len=None)
 
 for l in bert_model.layers:
     l.trainable = True
